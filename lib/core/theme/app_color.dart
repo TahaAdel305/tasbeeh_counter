@@ -8,7 +8,7 @@ class appcolor{
   //F7EFE3
   // Text
   static const textLight = Color(0xff0B3D36);
-  static const textDark = Color(0xffE4CEB0);
+  static const textDark = Color(0xffe4ceb0);
 //0xffF7EFE3
   // Icons
   static const iconLight = Color(0xff0B3D36);
