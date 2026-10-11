@@ -4,9 +4,7 @@ import 'package:tasbeeh_counter/core/theme/app_color.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     brightness:  Brightness.light,
-
     scaffoldBackgroundColor: Colors.transparent,
-
     colorScheme: ColorScheme.light(
       primary: appcolor.colorlight,
     ),
@@ -23,17 +21,20 @@ class AppTheme {
 
     navigationBarTheme: const NavigationBarThemeData(
       backgroundColor: appcolor.navigationBarLight,
-
-      indicatorColor: appcolor.navigationSelectedLight,
+      indicatorColor: appcolor.navigationSelectedDark,
 
       labelTextStyle: WidgetStatePropertyAll(
-        TextStyle(
+
+        TextStyle(fontSize: 10,
           color: appcolor.navigationSelectedLight,
         ),
       ),
     ),
 
   );
+
+
+
   static ThemeData darkTheme = ThemeData(
     brightness:  Brightness.dark,
     scaffoldBackgroundColor: Colors.transparent,
@@ -46,7 +47,7 @@ class AppTheme {
       color: appcolor.textDark,
     )),
 
-    iconTheme: IconThemeData(
+    iconTheme: IconThemeData(//size: 6,
       color: appcolor.iconDark,
     ),
 
@@ -57,6 +58,7 @@ class AppTheme {
 
       labelTextStyle: WidgetStatePropertyAll(
         TextStyle(
+          fontSize: 10,
           color: appcolor.navigationSelectedDark,
         ),
       ),

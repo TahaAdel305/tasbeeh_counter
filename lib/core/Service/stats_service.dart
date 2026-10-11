@@ -17,7 +17,7 @@ class StatsService extends ChangeNotifier {
     day[zikr] = (day[zikr] ?? 0) + 1;
     notifyListeners();
     await _prefs.setString(_storageKey, jsonEncode(_data));
-    debugPrint(_data.toString());
+    //debugPrint(_data.toString());
   }
 
   Future<void> init() async {

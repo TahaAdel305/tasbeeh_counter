@@ -15,7 +15,7 @@ class appcolor{
   static const iconDark = Color(0xffF7EFE3);
 
   // NavigationBar
-  static const navigationBarLight = Color(0xffF7EFE3);
+  static const navigationBarLight = Color(0xffE4CEB0);
   static const navigationBarDark = Color(0xff12332F);
 
   // NavigationBar Selected

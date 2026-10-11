@@ -3,11 +3,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasbeeh_counter/core/theme/app_color.dart';
 import 'package:provider/provider.dart';
 import 'package:tasbeeh_counter/core/Service/stats_service.dart';
+import 'package:tasbeeh_counter/screen_widget/settings_screen.dart';
 import '../core/Service/SettingsService.dart';
 import '../widget/Icon_Positioned.dart';
 import 'package:flutter/services.dart';
 
 import 'package:vibration/vibration.dart';
+
 class tasbeeh_screen extends StatefulWidget {
   const tasbeeh_screen({super.key});
 
@@ -27,6 +29,7 @@ class _tasbeeh_screenState extends State<tasbeeh_screen> {
     "أستغفر الله",
     "سبحان الله وبحمده",
     "سبحان الله العظيم",
+    "سبحان الله وبحمده سبحان الله العظيم",
     "لا حول ولا قوة إلا بالله",
     "اللهم صل على سيدنا محمد",
   ];
@@ -34,14 +37,14 @@ class _tasbeeh_screenState extends State<tasbeeh_screen> {
   void nextZikr() {
     setState(() {
       currentIndex = (currentIndex + 1) % zeker.length;
-      count = 0; // امسحها لو مش عاوز العداد يتصفر
+      count = 0;
     });
   }
 
   void previousZikr() {
     setState(() {
       currentIndex = (currentIndex - 1) % zeker.length;
-      count = 0; // امسحها لو مش عاوز العداد يتصفر
+      count = 0;
     });
   }
 
@@ -52,17 +55,39 @@ class _tasbeeh_screenState extends State<tasbeeh_screen> {
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      drawer: Drawer(
+        child: settings_screen(),
+        backgroundColor: isDark ? appcolor.colordark : appcolor.colorlight,
+      ),
       body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: hight * 0.08),
-            child: Center(
-              child: Text(
-                "عدد التسبيحات",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.only(top: hight * 0.08),
+                  child: Text(
+                    "عدد التسبيحات",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                ),
               ),
-            ),
+
+              Align(
+                alignment: Alignment.centerLeft,
+                child: SafeArea(
+                  child: Builder(
+                    builder: (context) => IconButton(
+                      icon: const Icon(Icons.menu_rounded),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
+
           Text(
             "$count",
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
@@ -85,13 +110,17 @@ class _tasbeeh_screenState extends State<tasbeeh_screen> {
                   onPressed: () {
                     final settings = context.read<SettingsService>();
                     if (settings.vibrationEnabled) {
-                      Vibration.hasVibrator().then((v) => print('hasVibrator: $v'));
+                      /*Vibration.hasVibrator().then(
+                        (v) => print('hasVibrator: $v'),
+                      );*/
                       Vibration.vibrate(duration: 500, amplitude: 255);
                     }
                     setState(() {
                       count++;
                     });
-                    context.read<StatsService>().addTasbeeh("${zeker[currentIndex]}");
+                    context.read<StatsService>().addTasbeeh(
+                      "${zeker[currentIndex]}",
+                    );
                   },
                   child: Container(
                     child: Column(
@@ -180,6 +209,7 @@ class _tasbeeh_screenState extends State<tasbeeh_screen> {
                       : appcolor.Icon_Positionedlight,
                 ),
                 width: double.infinity,
+                height: 50,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 7),
                   child: Row(
@@ -228,7 +258,7 @@ class _tasbeeh_screenState extends State<tasbeeh_screen> {
               ),
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 8),
         ],
       ),
     );

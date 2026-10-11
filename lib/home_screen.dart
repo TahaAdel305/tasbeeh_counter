@@ -16,10 +16,10 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
-  int currentIndex = 2;
+  int currentIndex = 1;
 
   final List<Widget>pages = [
-    settings_screen(),
+    //settings_screen(),
     alzehr_screen(),
     tasbeeh_screen(),
     statistics_screen(),
@@ -28,6 +28,7 @@ class _homeScreenState extends State<homeScreen> {
   @override
 
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     var hight = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -35,6 +36,10 @@ class _homeScreenState extends State<homeScreen> {
         child : pages[currentIndex]
       ),
       bottomNavigationBar: NavigationBar(
+        height: hight*0.07,
+        //elevation: 10,
+        animationDuration: Duration(seconds: 2),
+        //height: 60,
         selectedIndex: currentIndex,
         onDestinationSelected: (index) {
           setState(() {
@@ -43,26 +48,19 @@ class _homeScreenState extends State<homeScreen> {
         },
         destinations: [
           NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: "الاعدادات",
-          ),
-          NavigationDestination(
-             icon: Icon(Icons.eighteen_mp_outlined),
+             icon: Icon(Icons.eighteen_mp_outlined,size: 20,),
             label: "الاذكار",
           ),
           NavigationDestination(
            // icon: Icon(Icons.settings),
-          icon: Icon(Icons.one_x_mobiledata_sharp),
+          icon: Icon(Icons.one_x_mobiledata_sharp,size: 20,),
             label: "السبحه",
           ),
           NavigationDestination(
-            icon: Icon(Icons.radar),
+            icon: Icon(Icons.radar,size: 20,),
             label: "الاحصائيات",
           ),
-          /*NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: "Settings",
-          )*/
+
         ],
 
       ),
